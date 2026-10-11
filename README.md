@@ -69,6 +69,22 @@ Open:
 
 The first run automatically creates the database tables and inserts demo data.
 
+### Run with Docker Compose
+
+Copy `.env.example` to `.env`, then set a strong `JWT_SECRET` and, if needed, a
+`GEMINI_API_KEY`. Start the app and PostgreSQL with:
+
+```bash
+docker compose up --build
+```
+
+Open `http://localhost:3000`. Compose waits for PostgreSQL's health check before
+starting the app, and Sequelize receives a `DATABASE_URL` that uses the
+`postgres` service name on the Compose network. Database data is persisted in
+the `postgres-data` volume. TLS is disabled for this local database container;
+the database config enables TLS for production connections unless
+`DATABASE_SSL=false` is set.
+
 ### Demo users
 
 Seeded demo users are created with this password:

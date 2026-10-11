@@ -11,7 +11,12 @@ if (databaseUrl && (databaseUrl.startsWith('postgres://') || databaseUrl.startsW
     dialect: 'postgres',
     logging: false,
     dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production' ? { require: true, rejectUnauthorized: false } : false,
+      ssl:
+        process.env.DATABASE_SSL === 'false'
+          ? false
+          : process.env.NODE_ENV === 'production'
+            ? { require: true, rejectUnauthorized: false }
+            : false,
     },
   });
 } else {
